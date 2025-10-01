@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Career Readiness - Project Charter (Midterm)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #f97316 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 25px;
+        }
+
+        .status-badges {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-dot.pending {
+            background: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-menu {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .nav-link {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .student-info {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 8px solid #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+
+        .student-info h3 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #f97316;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 25px 30px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 30px;
+            max-height: 5000px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+
+        .section.collapsed .section-content {
+            max-height: 0;
+            padding: 0 30px;
+            opacity: 0;
+        }
+
+        .flow-diagram {
+            background: linear-gradient(135deg, #f9fafb, #ffffff);
+            border: 2px dashed #cbd5e1;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+
+        .kpi-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .kpi-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .callout {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-left: 5px solid #f97316;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.1);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: #9a3412;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .callout p {
+            color: #7c2d12;
+            line-height: 1.7;
+        }
+
+        .scope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .scope-card {
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scope-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .scope-card.in-scope {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 2px solid #10b981;
+        }
+
+        .scope-card.in-scope::before {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .scope-card.roadmap {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 2px solid #3b82f6;
+        }
+
+        .scope-card.roadmap::before {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+        }
+
+        .scope-card.out-scope {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            border: 2px solid #ef4444;
+        }
+
+        .scope-card.out-scope::before {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+
+        .scope-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .scope-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scope-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .scope-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .scope-card li::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            color: #6b7280;
+            font-weight: bold;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+
+        .data-table tr:hover {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .budget-summary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .budget-summary h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .budget-summary .total {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #f97316);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        h4 {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                max-width: 300px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .scope-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 10px 8px;
+            }
+
+            .status-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header fade-in">
+            <h1>IT Career Readiness Project Charter</h1>
+            <p>Managing IT Projects • Fall 2025 • Midterm Submission</p>
+            <div class="status-badges">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    Goal Approved (by 9/30)
+                </div>
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    Mission → Goal → Deliverables
+                </div>
+                <div class="status-badge">
+                    <span class="status-dot pending"></span>
+                    Presentation: n/a
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-menu fade-in">
+            <div class="nav-links">
+                <a href="#student-info" class="nav-link">Student Info</a>
+                <a href="#section1" class="nav-link">Project Title</a>
+                <a href="#section2" class="nav-link">Vision & Mission</a>
+                <a href="#section3" class="nav-link">Business Case</a>
+                <a href="#section4" class="nav-link">Flow Diagram</a>
+                <a href="#section5" class="nav-link">Scope</a>
+                <a href="#section6" class="nav-link">Stakeholders</a>
+                <a href="#section7" class="nav-link">Deliverables</a>
+                <a href="#section8" class="nav-link">Budget</a>
+                <a href="#section9" class="nav-link">Methodology</a>
+                <a href="#section10" class="nav-link">Project Tool</a>
+            </div>
+        </nav>
+
+        <!-- Student Information -->
+        <div id="student-info" class="student-info fade-in">
+            <h3>Student Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Student Name</div>
+                    <div class="info-value">Abner Bonilla</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Course</div>
+                    <div class="info-value">Managing IT Projects</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Semester</div>
+                    <div class="info-value">Fall 2025</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Project Title -->
+        <div id="section1" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section1')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">🎯</span>1. Project Title & Description</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h3>Launching My IT Career Readiness</h3>
+                <p>This project positions me to <strong>secure at least one real interview in IT support/operations by semester-end</strong> through targeted application materials, strategic networking, and active job applications. The professional portfolio serves as a key deliverable to support this goal, not as the goal itself.</p>
+                <p>By combining polished career documents, hands-on networking experiences, and structured interview preparation, this project creates a comprehensive pathway from academic preparation to professional opportunity in the IT field.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Vision & Mission -->
+        <div id="section2" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section2')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">🚀</span>2. Vision, Mission & Strategic Alignment</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h4>Personal Mission</h4>
+                <p>Grow as an IT professional by developing competitive career materials and actively seeking real opportunities in the technology sector.</p>
+                
+                <h4>Vision Statement</h4>
+                <p>Become interview-ready for IT support and operations roles, with the confidence and professional presence to effectively present my skills, experience, and value proposition to prospective employers.</p>
+                
+                <h4>Strategic Alignment</h4>
+                <p>This project directly supports my long-term career objectives by:</p>
+                <ul>
+                    <li>Building job-ready materials that position me competitively in the IT job market</li>
+                    <li>Establishing professional connections through strategic networking activities</li>
+                    <li>Gaining real-world interview experience and constructive feedback</li>
+                    <li>Creating a sustainable career development framework for continued growth</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: Business Case -->
+        <div id="section3" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section3')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">💼</span>3. Business Case & Justification</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h4>Professional Value</h4>
+                <p>Creates polished, market-ready materials and establishes an online professional presence that significantly increases interview probability and facilitates meaningful employer connections. The portfolio serves as a 24/7 digital representation of my capabilities.</p>
+                
+                <h4>Personal Value</h4>
+                <p>Builds confidence through tangible, measurable progress including completed applications, conducted interviews, and expanded professional network. Each milestone achieved reinforces readiness for career advancement.</p>
+                
+                <h4>Learning Outcomes</h4>
+                <ul>
+                    <li>Align technical skills with current market needs and employer expectations</li>
+                    <li>Craft a cohesive personal brand across all professional touchpoints</li>
+                    <li>Manage a complex project from initiation through successful closure</li>
+                    <li>Develop effective stakeholder communication and engagement strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: Mission → Goal → Deliverables Flow -->
+        <div id="section4" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section4')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">📊</span>Mission → Project Goal → Deliverables (Explicit Flow)</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <div class="flow-diagram">
+                    <svg width="1100" height="180" viewBox="0 0 1100 180" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="g1" x1="0" x2="1">
+                                <stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/>
+                            </linearGradient>
+                            <linearGradient id="g2" x1="0" x2="1">
+                                <stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/>
+                            </linearGradient>
+                            <linearGradient id="g3" x1="0" x2="1">
+                                <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#059669"/>
+                            </linearGradient>
+                            <filter id="shadow">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+                                <feOffset dx="0" dy="4" result="offsetblur"/>
+                                <feComponentTransfer>
+                                    <feFuncA type="linear" slope="0.2"/>
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Mission Box -->
+                        <rect x="30" y="35" rx="14" ry="14" width="260" height="110" fill="url(#g1)" filter="url(#shadow)"/>
+                        <text x="160" y="75" fill="#fff" font-family="Inter" font-size="20" text-anchor="middle" font-weight="800">MISSION</text>
+                        <text x="160" y="100" fill="#e5e7eb" font-size="13" text-anchor="middle" font-weight="500">Grow as an IT</text>
+                        <text x="160" y="120" fill="#e5e7eb" font-size="13" text-anchor="middle" font-weight="500">professional</text>
+                        
+                        <!-- Arrow 1 -->
+                        <polygon points="310,90 350,90 350,75 390,105 350,135 350,120 310,120" fill="#94a3b8" opacity="0.9"/>
+                        <text x="350" y="65" fill="#475569" font-size="11" text-anchor="middle" font-weight="700">DRIVES</text>
+                        
+                        <!-- Project Goal Box -->
+                        <rect x="410" y="35" rx="14" ry="14" width="260" height="110" fill="url(#g2)" filter="url(#shadow)"/>
+                        <text x="540" y="75" fill="#fff" font-size="20" text-anchor="middle" font-weight="800">PROJECT GOAL</text>
+                        <text x="540" y="100" fill="#fff" opacity="0.95" font-size="13" text-anchor="middle" font-weight="600">Secure ≥1 real interview</text>
+                        <text x="540" y="120" fill="#fff" opacity="0.95" font-size="13" text-anchor="middle" font-weight="600">by semester end</text>
+                        
+                        <!-- Arrow 2 -->
+                        <polygon points="690,90 730,90 730,75 770,105 730,135 730,120 690,120" fill="#94a3b8" opacity="0.9"/>
+                        <text x="730" y="65" fill="#475569" font-size="11" text-anchor="middle" font-weight="700">PRODUCES</text>
+                        
+                        <!-- Deliverables Box -->
+                        <rect x="790" y="35" rx="14" ry="14" width="280" height="110" fill="url(#g3)" filter="url(#shadow)"/>
+                        <text x="930" y="70" fill="#052e16" font-size="20" text-anchor="middle" font-weight="900">DELIVERABLES</text>
+                        <text x="930" y="95" fill="#052e16" font-size="12" text-anchor="middle" font-weight="600">Resume • Portfolio • Career Plan</text>
+                        <text x="930" y="112" fill="#052e16" font-size="12" text-anchor="middle" font-weight="600">Interviews • Networking</text>
+                        <text x="930" y="129" fill="#052e16" font-size="12" text-anchor="middle" font-weight="600">Presentation</text>
+                    </svg>
+                </div>
+                
+                <div class="kpi-badges">
+                    <div class="kpi-badge">Success Metric: 1+ Interview Secured</div>
+                    <div class="kpi-badge">Timeline: All Deliverables by Final Week</div>
+                    <div class="kpi-badge">Quality Gate: Peer/Professor Sign-Off</div>
+                </div>
+                
+                <div class="callout">
+                    <div class="callout-title">Clear Alignment Demonstrated</div>
+                    <p>This flow explicitly shows how my personal mission to grow as an IT professional drives the specific project goal of securing at least one interview, which in turn produces concrete deliverables that directly support achieving that goal. Each deliverable is purposefully designed to enhance employability and interview readiness.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Scope -->
+        <div id="section5" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section5')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">🔍</span>4. High-Level Scope Definition</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <div class="scope-grid">
+                    <div class="scope-card in-scope">
+                        <h4>✅ In Scope</h4>
+                        <ul>
+                            <li>Professionally polished resume and tailored cover letter templates</li>
+                            <li>HTML-based portfolio website showcasing projects and skills</li>
+                            <li>Two professional informational interviews with industry practitioners</li>
+                            <li>Comprehensive career plan documenting short-term and long-term goals</li>
+                            <li>Attendance at networking events and documentation of connections made</li>
+                            <li>Mock interview sessions with documented feedback and improvements</li>
+                            <li>Final presentation (HTML) summarizing project outcomes</li>
+                        </ul>
+                    </div>
+                    <div class="scope-card roadmap">
+                        <h4>🗺️ Roadmap (Post-Semester)</h4>
+                        <ul>
+                            <li>Continuous portfolio updates with new projects and achievements</li>
+                            <li>Pursuit of industry certifications (e.g., CompTIA A+, Google IT Support)</li>
+                            <li>LinkedIn network expansion to 50+ professional connections</li>
+                            <li>Active pursuit of internship and entry-level positions</li>
+                            <li>Participation in additional industry networking events</li>
+                        </ul>
+                    </div>
+                    <div class="scope-card out-scope">
+                        <h4>❌ Out of Scope</h4>
+                        <ul>
+                            <li>Graduate school research and application decisions</li>
+                            <li>Company-specific training programs or certifications</li>
+                            <li>Guaranteed job placement or full-time employment offers</li>
+                            <li>Relocation planning or housing arrangements</li>
+                            <li>Advanced technical skill development beyond current coursework</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Stakeholder Register -->
+        <div id="section6" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section6')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">👥</span>5. Stakeholder Register</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Stakeholder</th>
+                            <th>Category</th>
+                            <th>Role/Interest</th>
+                            <th>Power</th>
+                            <th>Interest</th>
+                            <th>Engagement Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Professor</strong></td>
+                            <td>Internal</td>
+                            <td>Project evaluation, feedback provider, grade assignment</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Regular progress updates, draft submissions, incorporate feedback promptly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Classmates/Peers</strong></td>
+                            <td>Internal</td>
+                            <td>Peer review, mock interview partners, mutual support</td>
+                            <td>Low</td>
+                            <td>High</td>
+                            <td>Collaborative feedback exchanges, peer review sessions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Career Center</strong></td>
+                            <td>Internal</td>
+                            <td>Resume/portfolio guidance, interview prep, job search support</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Attend workshops, schedule review appointments, utilize resources</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employers/Recruiters</strong></td>
+                            <td>External</td>
+                            <td>Potential interviewers, job opportunity providers</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Deliver polished, job-aligned materials; professional communication</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Industry Mentors</strong></td>
+                            <td>External</td>
+                            <td>Career guidance, interview subjects, networking connections</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Scheduled check-ins, informational interviews, follow-up communications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Family/Support Network</strong></td>
+                            <td>External</td>
+                            <td>Emotional support, accountability, encouragement</td>
+                            <td>Low</td>
+                            <td>Medium</td>
+                            <td>Periodic updates on milestones, celebrate achievements</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 7: Deliverables -->
+        <div id="section7" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section7')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">📦</span>6. Deliverables with Definition of Done</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 18%;">Deliverable</th>
+                            <th style="width: 28%;">Definition of Done</th>
+                            <th style="width: 22%;">Key Tasks</th>
+                            <th style="width: 20%;">Dependencies</th>
+                            <th style="width: 12%;">Time Estimate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Resume & Cover Letter</strong></td>
+                            <td>
+                                • Zero grammatical/spelling errors<br>
+                                • Peer and Career Center reviewed<br>
+                                • ATS-optimized format<br>
+                                • Final PDFs exported<br>
+                                • Tailored to target roles
+                            </td>
+                            <td>
+                                1. Draft initial content<br>
+                                2. Career Center review<br>
+                                3. Incorporate feedback<br>
+                                4. Peer review<br>
+                                5. Final revisions & export
+                            </td>
+                            <td>
+                                • Career Center availability<br>
+                                • Peer feedback timing<br>
+                                • Job description research
+                            </td>
+                            <td>6 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Digital Portfolio (HTML)</strong></td>
+                            <td>
+                                • Live, publicly accessible site<br>
+                                • Includes About, Projects, Contact sections<br>
+                                • Minimum 2 project showcases<br>
+                                • Resume downloadable<br>
+                                • Mobile-responsive<br>
+                                • Cross-browser tested
+                            </td>
+                            <td>
+                                1. Design layout & structure<br>
+                                2. Build HTML/CSS framework<br>
+                                3. Add content & projects<br>
+                                4. Test responsiveness<br>
+                                5. Deploy to hosting platform
+                            </td>
+                            <td>
+                                • Completed resume<br>
+                                • Project content ready<br>
+                                • Hosting service setup
+                            </td>
+                            <td>20 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Career Plan Document</strong></td>
+                            <td>
+                                • 2-3 pages, professionally formatted<br>
+                                • ≥3 long-term goals (3-5 years)<br>
+                                • ≥3 short-term goals (6-12 months)<br>
+                                • Action steps for each goal<br>
+                                • Professor reviewed & approved<br>
+                                • PDF format
+                            </td>
+                            <td>
+                                1. Research industry pathways<br>
+                                2. Draft goals & action steps<br>
+                                3. Write comprehensive plan<br>
+                                4. Professor review<br>
+                                5. Revise & finalize
+                            </td>
+                            <td>
+                                • Industry research completion<br>
+                                • Professor feedback<br>
+                                • Self-reflection exercises
+                            </td>
+                            <td>5 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Professional Interviews (2)</strong></td>
+                            <td>
+                                • Two interviews completed<br>
+                                • Detailed notes documented<br>
+                                • Synthesis report written<br>
+                                • Key insights identified<br>
+                                • Thank-you notes sent<br>
+                                • Connections maintained
+                            </td>
+                            <td>
+                                1. Identify interview candidates<br>
+                                2. Schedule interviews<br>
+                                3. Prepare questions<br>
+                                4. Conduct interviews<br>
+                                5. Document & synthesize findings
+                            </td>
+                            <td>
+                                • Professional availability<br>
+                                • Interview questions prepared<br>
+                                • Recording/note-taking tools
+                            </td>
+                            <td>8 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Networking Events</strong></td>
+                            <td>
+                                • Attended ≥1 event<br>
+                                • Minimum 5 contacts collected<br>
+                                • Follow-up messages sent<br>
+                                • Brief reflection written<br>
+                                • Contacts added to LinkedIn<br>
+                                • Experience documented
+                            </td>
+                            <td>
+                                1. Research upcoming events<br>
+                                2. Register & prepare materials<br>
+                                3. Attend event(s)<br>
+                                4. Document contacts<br>
+                                5. Follow up with connections
+                            </td>
+                            <td>
+                                • Event schedules/availability<br>
+                                • Resume/business cards<br>
+                                • Transportation arranged
+                            </td>
+                            <td>10 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mock Interviews</strong></td>
+                            <td>
+                                • ≥2 practice sessions completed<br>
+                                • Feedback documented<br>
+                                • Improvements implemented<br>
+                                • Common questions prepared<br>
+                                • Confidence level increased<br>
+                                • Recording reviewed
+                            </td>
+                            <td>
+                                1. Schedule with peers/mentors<br>
+                                2. Prepare standard questions<br>
+                                3. Conduct practice interviews<br>
+                                4. Review & document feedback<br>
+                                5. Practice improvements
+                            </td>
+                            <td>
+                                • Peer/mentor availability<br>
+                                • Interview questions list<br>
+                                • Recording capability
+                            </td>
+                            <td>6 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final Presentation (HTML)</strong></td>
+                            <td>
+                                • HTML slide deck created<br>
+                                • Summarizes entire project<br>
+                                • Presented to class<br>
+                                • 10-15 minutes duration<br>
+                                • Includes visuals/data<br>
+                                • Lessons learned documented
+                            </td>
+                            <td>
+                                1. Design presentation structure<br>
+                                2. Build HTML slides<br>
+                                3. Add content & visuals<br>
+                                4. Rehearse delivery<br>
+                                5. Present to class
+                            </td>
+                            <td>
+                                • All deliverables completed<br>
+                                • Project data collected<br>
+                                • Presentation date confirmed
+                            </td>
+                            <td>8 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="callout">
+                    <div class="callout-title">Total Estimated Effort</div>
+                    <p><strong>63 hours</strong> of dedicated work across all deliverables. Each deliverable has clear acceptance criteria ensuring quality and completeness before moving to the next phase.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Budget -->
+        <div id="section8" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section8')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">💰</span>7. Budget Estimation</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h4>Labor Effort (Self-Contributed, Unpaid)</h4>
+                <p><strong>Total: 63 hours</strong> of personal time investment across all project phases and deliverables.</p>
+                
+                <h4>Non-Labor Direct Costs</h4>
+                <ul>
+                    <li><strong>Domain Registration & Web Hosting (1 year):</strong> $60.00</li>
+                    <li><strong>Adobe Creative Cloud (Student subscription, 1 month):</strong> $19.99</li>
+                    <li><strong>Stock Images/Graphics (portfolio enhancement):</strong> $5.00</li>
+                    <li><strong>Professional Development Workshop/Webinar:</strong> $30.00</li>
+                    <li><strong>Printing (resume copies for networking):</strong> $10.00</li>
+                </ul>
+                <p><strong>Subtotal Non-Labor Costs: $124.99</strong></p>
+                
+                <h4>Contingency Reserve</h4>
+                <p>20% buffer on non-labor costs to account for unexpected expenses, price changes, or additional resource needs.</p>
+                <p><strong>Contingency Amount: $25.00</strong></p>
+                
+                <div class="budget-summary">
+                    <h4>Grand Total Budget</h4>
+                    <div class="total">$149.99 + 63 hours</div>
+                </div>
+                
+                <div class="callout">
+                    <div class="callout-title">Budget Justification</div>
+                    <p>All budget items directly support the project goal of securing interviews. The portfolio website requires hosting to be accessible to employers; design tools ensure professional presentation quality; workshops provide targeted skill development; and printed materials facilitate in-person networking. Each expense is essential to creating a competitive professional presence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Methodology -->
+        <div id="section9" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section9')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">⚙️</span>8. Methodology Diagram & Justification</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h3>Hybrid Approach: Predictive + Adaptive</h3>
+                <p><strong>Rationale:</strong> This project requires a hybrid methodology because it combines fixed semester deadlines and sequential dependencies (predictive elements) with content that benefits from iterative feedback and continuous improvement (adaptive elements). The structure provides clarity while maintaining flexibility for quality refinement.</p>
+                
+                <div class="flow-diagram">
+                    <svg width="1200" height="280" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="pred" x1="0" x2="1">
+                                <stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/>
+                            </linearGradient>
+                            <linearGradient id="sprint" x1="0" x2="1">
+                                <stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#059669"/>
+                            </linearGradient>
+                            <filter id="shadow2">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                                <feOffset dx="0" dy="3"/>
+                                <feComponentTransfer>
+                                    <feFuncA type="linear" slope="0.3"/>
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Predictive Phase Labels -->
+                        <text x="600" y="25" fill="#1e40af" font-size="16" text-anchor="middle" font-weight="800">PREDICTIVE PHASES (Waterfall Structure)</text>
+                        
+                        <!-- Phase 1: Initiate -->
+                        <rect x="40" y="45" width="240" height="70" rx="12" fill="url(#pred)" filter="url(#shadow2)"/>
+                        <text x="160" y="75" fill="#fff" font-size="18" text-anchor="middle" font-weight="800">INITIATE</text>
+                        <text x="160" y="95" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Charter approval</text>
+                        <text x="160" y="110" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Goal validation</text>
+                        
+                        <!-- Arrow -->
+                        <polygon points="290,80 330,80 330,70 355,90 330,110 330,100 290,100" fill="#64748b"/>
+                        
+                        <!-- Phase 2: Plan -->
+                        <rect x="365" y="45" width="240" height="70" rx="12" fill="url(#pred)" filter="url(#shadow2)"/>
+                        <text x="485" y="75" fill="#fff" font-size="18" text-anchor="middle" font-weight="800">PLAN</text>
+                        <text x="485" y="95" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Schedule & WBS</text>
+                        <text x="485" y="110" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Stakeholder strategy</text>
+                        
+                        <!-- Arrow -->
+                        <polygon points="615,80 655,80 655,70 680,90 655,110 655,100 615,100" fill="#64748b"/>
+                        
+                        <!-- Phase 3: Execute -->
+                        <rect x="690" y="45" width="240" height="70" rx="12" fill="url(#pred)" filter="url(#shadow2)"/>
+                        <text x="810" y="75" fill="#fff" font-size="18" text-anchor="middle" font-weight="800">EXECUTE</text>
+                        <text x="810" y="95" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Via iterative sprints</text>
+                        <text x="810" y="110" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">(see below)</text>
+                        
+                        <!-- Arrow -->
+                        <polygon points="940,80 980,80 980,70 1005,90 980,110 980,100 940,100" fill="#64748b"/>
+                        
+                        <!-- Phase 4: Close -->
+                        <rect x="1015" y="45" width="160" height="70" rx="12" fill="url(#pred)" filter="url(#shadow2)"/>
+                        <text x="1095" y="75" fill="#fff" font-size="18" text-anchor="middle" font-weight="800">CLOSE</text>
+                        <text x="1095" y="95" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Final delivery</text>
+                        <text x="1095" y="110" fill="#e5e7eb" font-size="12" text-anchor="middle" font-weight="500">Lessons learned</text>
+                        
+                        <!-- Adaptive Sprint Labels -->
+                        <text x="600" y="165" fill="#059669" font-size="16" text-anchor="middle" font-weight="800">ADAPTIVE SPRINTS (Iterative Execution)</text>
+                        
+                        <!-- Sprint 1 -->
+                        <rect x="180" y="185" width="200" height="70" rx="12" fill="url(#sprint)" filter="url(#shadow2)"/>
+                        <text x="280" y="210" fill="#052e16" font-size="16" text-anchor="middle" font-weight="900">SPRINT 1</text>
+                        <text x="280" y="230" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">Resume & Career Plan</text>
+                        <text x="280" y="245" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">(Weeks 1-2)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 390 220 L 430 220" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Sprint 2 -->
+                        <rect x="440" y="185" width="200" height="70" rx="12" fill="url(#sprint)" filter="url(#shadow2)"/>
+                        <text x="540" y="210" fill="#052e16" font-size="16" text-anchor="middle" font-weight="900">SPRINT 2</text>
+                        <text x="540" y="230" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">Portfolio & Interviews</text>
+                        <text x="540" y="245" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">(Weeks 3-4)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 650 220 L 690 220" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Sprint 3 -->
+                        <rect x="700" y="185" width="200" height="70" rx="12" fill="url(#sprint)" filter="url(#shadow2)"/>
+                        <text x="800" y="210" fill="#052e16" font-size="16" text-anchor="middle" font-weight="900">SPRINT 3</text>
+                        <text x="800" y="230" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">Networking & Mocks</text>
+                        <text x="800" y="245" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">(Weeks 5-6)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 910 220 L 950 220" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Sprint 4 -->
+                        <rect x="960" y="185" width="200" height="70" rx="12" fill="url(#sprint)" filter="url(#shadow2)"/>
+                        <text x="1060" y="210" fill="#052e16" font-size="16" text-anchor="middle" font-weight="900">SPRINT 4</text>
+                        <text x="1060" y="230" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">Presentation & Polish</text>
+                        <text x="1060" y="245" fill="#052e16" font-size="11" text-anchor="middle" font-weight="600">(Week 7)</text>
+                        
+                        <defs>
+                            <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#059669"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <h4>Detailed Methodology Justification</h4>
+                
+                <h4>Why Hybrid Works Best:</h4>
+                <ul>
+                    <li><strong>Predictive Elements:</strong> Clear semester timeline with fixed milestones (charter due, presentation date), sequential dependencies (resume must precede portfolio), and defined success criteria</li>
+                    <li><strong>Adaptive Elements:</strong> Content quality improves through feedback cycles, design iterations respond to stakeholder input, and learning occurs progressively throughout execution</li>
+                    <li><strong>Integration:</strong> The waterfall phases provide structure and accountability, while sprints within Execute enable continuous improvement without missing deadlines</li>
+                </ul>
+                
+                <h4>Sprint Details:</h4>
+                <ul>
+                    <li><strong>Sprint 1 (Weeks 1-2):</strong> Draft and refine resume; begin career plan; gather initial feedback</li>
+                    <li><strong>Sprint 2 (Weeks 3-4):</strong> Build portfolio website; conduct professional interviews; synthesize insights</li>
+                    <li><strong>Sprint 3 (Weeks 5-6):</strong> Attend networking events; complete mock interviews; apply feedback</li>
+                    <li><strong>Sprint 4 (Week 7):</strong> Finalize all deliverables; create presentation; prepare for delivery</li>
+                </ul>
+                
+                <p><strong>Each sprint includes:</strong> Planning (define sprint goals) → Execution (create/revise deliverables) → Review (gather feedback) → Retrospective (document lessons learned) → Adapt (apply improvements in next sprint)</p>
+            </div>
+        </div>
+
+        <!-- Section 10: Project Tool -->
+        <div id="section10" class="section fade-in">
+            <div class="section-header" onclick="toggleSection('section10')">
+                <h2 class="section-title">
+                    <span><span class="section-icon">🛠️</span>9. Project Tool Selection & Justification</span>
+                    <span class="toggle-icon">▼</span>
+                </h2>
+            </div>
+            <div class="section-content">
+                <h3>Primary Tool: Microsoft Project</h3>
+                <p><strong>Selected as the primary project management tool for this hybrid approach.</strong></p>
+                
+                <h4>Why Microsoft Project is the Best Fit:</h4>
+                <ul>
+                    <li><strong>Hybrid Methodology Support:</strong> Provides robust Gantt charts and dependency tracking for the predictive backbone, while allowing task updates and baseline comparisons for iterative sprint management</li>
+                    <li><strong>Timeline Management:</strong> Clear visualization of fixed semester milestones, critical path identification, and deadline tracking ensure on-time delivery</li>
+                    <li><strong>Resource Planning:</strong> Tracks 63 hours of labor allocation across deliverables, identifies time conflicts, and supports workload balancing</li>
+                    <li><strong>Dependency Tracking:</strong> Models sequential relationships (e.g., resume must be complete before portfolio integration) using Finish-to-Start (FS) and Start-to-Start (SS) dependencies</li>
+                    <li><strong>Progress Monitoring:</strong> Percentage complete tracking, variance analysis, and earned value management provide clear visibility into project health</li>
+                </ul>
+                
+                <h4>Key Features Utilized:</h4>
+                <ul>
+                    <li><strong>Work Breakdown Structure (WBS):</strong> Hierarchical decomposition of deliverables into manageable tasks</li>
+                    <li><strong>Milestones:</strong> Key checkpoints like "Resume Finalized," "Portfolio Live," "Interview #1 Complete"</li>
+                    <li><strong>Baselines:</strong> Saved initial plan for comparing actual vs. planned progress</li>
+                    <li><strong>Resource Allocation:</strong> Time estimates per task enable realistic scheduling</li>
+                    <li><strong>Critical Path:</strong> Identifies must-complete-on-time tasks to achieve the interview goal</li>
+                    <li><strong>Reports & Dashboards:</strong> Visual progress summaries for stakeholder communication</li>
+                </ul>
+                
+                <h4>Alternatives Considered:</h4>
+                <table class="data-table" style="margin-top: 16px;">
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Strengths</th>
+                            <th>Why Not Primary</th>
+                            <th>Role in Project</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trello</strong></td>
+                            <td>Visual Kanban boards, easy collaboration, lightweight</td>
+                            <td>Lacks dependency tracking and Gantt capabilities needed for predictive phases</td>
+                            <td>Supporting tool for daily task management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notion</strong></td>
+                            <td>Flexible documentation, database views, notes integration</td>
+                            <td>Not purpose-built for project scheduling and resource management</td>
+                            <td>Supporting tool for documentation and notes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Asana</strong></td>
+                            <td>Task lists, timeline view, team collaboration</td>
+                            <td>Limited Gantt functionality, weaker resource management vs. MS Project</td>
+                            <td>Could substitute but MS Project more robust</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GitHub Projects</strong></td>
+                            <td>Integrated with code repos, issue tracking</td>
+                            <td>Designed for software development, not general project management</td>
+                            <td>Used for portfolio website hosting only</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Cost & Access:</h4>
+                <p><strong>$0 - Student licensing</strong> through campus Microsoft 365 subscription or free trial. No additional costs anticipated for this academic project.</p>
+                
+                <div class="callout">
+                    <div class="callout-title">Evidence of Fit</div>
+                    <p>Microsoft Project's comprehensive feature set directly maps to this project's needs: the WBS structure mirrors deliverables, dependencies ensure proper sequencing, resource tracking aligns with the 63-hour budget, and milestone tracking supports the goal of securing interviews by semester end. The tool enables both high-level phase planning and detailed sprint execution tracking in a single integrated system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle section functionality
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('collapsed');
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Progress bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section, .student-info').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
